@@ -205,12 +205,19 @@ int main()
 	//cout << s2 << ' ' << am2 << ' ' <<  a2.PayForCall(sec2, cost2) << ' ' << a2.availablebalance() << endl;
 	//cout << s3 << ' ' << am3 << ' ' <<  a3.PayForCall(sec3, cost3) << ' ' << a3.availablebalance() << endl;
 	//cout << s4 << ' ' << am4 << ' ' <<  a4.PayForCall(sec4, cost4) << ' ' << a4.availablebalance() << endl;
+	int count = 0;
 	AS.insert(a0);
+	++count;
 	AS.insert(a1);
+	++count;
 	AS.insert(a2);
+	++count;
 	AS.insert(a3);
+	++count;
 	AS.insert(a4);
+	++count;
 	//AS.remove(a2);
+	//--count;
 	//cout << AS.getSize() << endl;
 	/*AS.insert1(a0);
 	AS.insert1(a1);
@@ -218,7 +225,7 @@ int main()
 	AS.insert1(a3);
 	AS.insert1(a4);
 	AS.sorting();*/
-	for(int i = 0; i < 5; ++i)
+	for(int i = 0; i < count; ++i)
 	{
 		cout << AS.getAccount(i + 1).getnumber() << ' ' << AS.getAccount(i + 1).availablebalance() << endl;
 	}
