@@ -88,27 +88,23 @@ AccountStore::AccountStore()
 	used = 0;
 }
 
-void AccountStore::insert(PrepaidAccount entry)                                    //insert method 1
+void AccountStore::insert(PrepaidAccount entry)                               //insert method 1，insert with sorting.
 {
 	account[used] = entry;
 	for(int i=0; i<used; ++i)
 	{
-		for(int j=used; j>i; --j)
+		if(compareAccount(account[i], entry) == 1)
 		{
-			//if(account[j - 1].getnumber() > account[j].getnumber())
-			if(compareAccount(account[j - 1], account[j]) == 1)
-				{
-					PrepaidAccount temp;
-					temp = account[j];
-					account[j] = account[j - 1];
-					account[j - 1] = temp;
-				}
+			for(int j=used; j>=i; --j)
+				account[j + 1] = account[j];
+			account[i] = entry;
+			break;
 		}
 	}
 	++used;
 }
 
-void AccountStore::insert1(PrepaidAccount entry)                                   //insert method 2 with sorting() function.
+void AccountStore::insert1(PrepaidAccount entry)                             //insert method 2 with sorting() function.
 {
 	account[used] = entry;
 	++used;
@@ -120,7 +116,6 @@ void AccountStore::sorting()
 	{
 		for(int j=used-1; j>i; --j)
 		{
-			//if(account[j - 1].getnumber() > account[j].getnumber())
 			if(compareAccount(account[j - 1], account[j]) == 1)
 				{
 					PrepaidAccount temp;
