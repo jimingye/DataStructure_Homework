@@ -71,7 +71,7 @@ int compareAccount(const PrepaidAccount a1, const PrepaidAccount a2)
 class AccountStore
 {
 public:
-	AccountStore();
+	AccountStore():used(0){}
 	void insert(PrepaidAccount entry);
 	void insert1(PrepaidAccount entry);
 	void remove(PrepaidAccount target);
@@ -82,11 +82,6 @@ private:
 	PrepaidAccount account[100];
 	int used;
 };
-
-AccountStore::AccountStore()
-{
-	used = 0;
-}
 
 void AccountStore::insert(PrepaidAccount entry)                               //insert method 1，insert with sorting.
 {
