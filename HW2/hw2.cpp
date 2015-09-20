@@ -109,11 +109,29 @@ int Linkedlist::length()
 
 void concatenate(NODE *head1, NODE *head2)
 {
-	NODE *p = head1 -> next;
-	while(p -> next != NULL)
-		p = p -> next;
-	p -> next = head2 -> next;
-	delete head2;
+	NODE *p, *q, *r;
+	if(head2 -> next == NULL)
+		return;
+	q = new NODE;
+	q -> data = head2 -> next -> data;
+	r = q;
+	head2 -> next = head2 -> next -> next;
+	while(head2 -> next != NULL)
+	{
+		p =new NODE;
+		p -> data = head2 -> next -> data;
+		r -> next = p;
+		r = p;
+		head2 -> next = head2 -> next -> next;
+	}
+	r -> next = NULL;
+	if(head1 -> next== NULL)
+		head1 -> next = q;
+	else
+	{
+		for(p = head1 -> next; p -> next != NULL; p = p -> next);
+		p -> next = q;
+	}
 }
 
 void Linkedlist::reverse()
@@ -175,7 +193,9 @@ int main()
 	    int j;
 	    while(cin >> j)
 	    	l2.insert(j);
-	    concatenate(l1.gethead(), l2.gethead());
+	    NODE *p1 = l1.gethead();
+	    NODE *p2 = l2.gethead();
+	    concatenate(p1, p2);
 	    cout << "The outcome is:" << endl;
 	    l1.print();
 	}
