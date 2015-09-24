@@ -3,6 +3,7 @@ Homework_2
 Jiming Ye
 N16566270
 jy1769@nyu.edu
+Mac OSX
 */
 
 #include <iostream>
