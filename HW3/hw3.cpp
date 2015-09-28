@@ -40,8 +40,7 @@ stack::~stack()
 {
 	while(head != NULL)
 	{
-		NODE *p = new NODE();
-		p = head;
+		NODE *p = head;
 		head = head -> next;
 		delete p;
 		p = NULL;
@@ -64,8 +63,7 @@ char stack::pop()
 	else
 	{
 		temp = head -> data;
-		NODE *p = new NODE();
-		p = head;
+		NODE *p = head;
 		head = head -> next;
 		delete p;
 		p = NULL;
@@ -74,7 +72,7 @@ char stack::pop()
 	}
 }
 
-string inverse(stack s)
+string inverse(stack &s)
 {
 	string str;
 	vector<string> svec;
@@ -85,13 +83,13 @@ string inverse(stack s)
 		if(c != ' ')
 		{
 			str += c;
-			c = '\0';
+			//c = '\0';
 		}
 		else
 		{
 			svec.push_back(str);
 			str.clear();
-			c = '\0';
+			//c = '\0';
 		}
 	}
 	svec.push_back(str);
