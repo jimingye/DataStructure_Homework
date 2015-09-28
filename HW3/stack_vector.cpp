@@ -4,33 +4,40 @@
 
 using namespace::std;
 
-int main()
+string inverse(stack<char> s)
 {
-	char c;
-	vector<char> cvec;
-	stack<char> cstk;
-	while(cin >> noskipws >> c)
+	string str;
+	vector<string> svec;
+	s.pop();
+	while(!s.empty())
 	{
+		char c = s.top();
+		s.pop();
 		if(c != ' ')
-			cstk.push(c);
+			str += c;
 		else
 		{
-			while(!cstk.empty())
-			{
-				cvec.push_back(cstk.top());
-				cstk.pop();
-			}
-			cvec.push_back(' ');
+			svec.push_back(str);
+			str.clear();
+			c = '\0';
 		}
 	}
-	cstk.pop();
-	while(!cstk.empty())
-	{
-		cvec.push_back(cstk.top());
-		cstk.pop();
-	}
-	for(auto c1 : cvec)
-		cout << c1;
-	cout << endl;
+	svec.push_back(str);
+	str.clear();
+	for(auto iter = svec.rbegin(); iter != svec.rend(); ++iter)
+		str += *iter + " ";
+	return str;
+}
+
+int main()
+{
+	stack<char> stk;
+	char c; 
+	while(cin >> noskipws >> c)
+		stk.push(c);
+	//while(!stk.empty())
+	//	cout << stk.pop();
+	//cout << endl;
+	cout << inverse(stk);
 	return 0;
 }
