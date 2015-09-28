@@ -99,15 +99,51 @@ string inverse(stack &s)
 	return str;
 }
 
+class queue
+{
+private:
+	stack s1;
+	stack s2;
+
+public:
+	queue() = default;
+
+	void insert(const char &c);
+	char get_front();
+	bool empty(){return (s1.size() + s2.size() == 0);}
+};
+
+void queue::insert(const char &c)
+{
+	s1.push(c);
+}
+
+char queue::get_front()
+{
+	if(s2.empty())
+	{
+		while(!s1.empty())
+			s2.push(s1.pop());
+		return s2.pop();
+	}
+	else
+		return s2.pop();
+}
+
 int main()
 {
-	stack stk;
-	char c; 
+	stack stk;	
+	queue que;
+	char c;
 	while(cin >> noskipws >> c)
+	{
+		que.insert(c);
 		stk.push(c);
-	//while(!stk.empty())
-	//	cout << stk.pop();
-	//cout << endl;
+	}
+	while(!que.empty())
+		cout << que.get_front();
 	cout << inverse(stk);
+	cout << endl;
 	return 0;
+
 }
