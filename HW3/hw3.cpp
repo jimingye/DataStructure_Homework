@@ -40,9 +40,11 @@ stack::~stack()
 {
 	while(head != NULL)
 	{
-		NODE *p = head;
+		NODE *p = new NODE();
+		p = head;
 		head = head -> next;
 		delete p;
+		p = NULL;
 	}
 }
 
@@ -66,6 +68,7 @@ char stack::pop()
 		p = head;
 		head = head -> next;
 		delete p;
+		p = NULL;
 		--sizeofstack;
 		return temp;
 	}
@@ -82,13 +85,13 @@ string inverse(stack s)
 		if(c != ' ')
 		{
 			str += c;
-			//c = '\0';
+			c = '\0';
 		}
 		else
 		{
 			svec.push_back(str);
 			str.clear();
-			//c = '\0';
+			c = '\0';
 		}
 	}
 	svec.push_back(str);
