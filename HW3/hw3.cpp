@@ -12,18 +12,20 @@ Mac OSX
 
 using namespace::std;
 
+template<class T>
 struct NODE
 {
-	char data;
+	T data;
 	NODE *next;
 	NODE() = default;
-	NODE(const char& d):data(d),next(NULL){}
+	NODE(const T& d):data(d),next(NULL){}
 };
 
+template<class T>
 class stack
 {
 private:
-	NODE *head;
+	NODE<T> *head;
 	int sizeofstack;
 
 public:
@@ -32,38 +34,41 @@ public:
 
 	int size(){return sizeofstack;}
 	bool empty(){return (size() == 0);}
-	void push(const char &c);
-	char pop();
+	void push(const T &c);
+	T pop();
 };
 
-stack::~stack()
+template<class T>
+stack<T>::~stack()
 {
 	while(head != NULL)
 	{
-		NODE *p = head;
+		NODE<T> *p = head;
 		head = head -> next;
 		delete p;
 		p = NULL;
 	}
 }
 
-void stack::push(const char &c)
+template<class T>
+void stack<T>::push(const T &c)
 {
-	NODE *p = new NODE();
+	NODE<T> *p = new NODE<T>();
 	p -> data = c, p -> next = head;
 	head = p;
 	++sizeofstack;
 }
 
-char stack::pop()
+template<class T>
+T stack<T>::pop()
 {
-	char temp;
+	T temp;
 	if(empty())
 		return -1;
 	else
 	{
 		temp = head -> data;
-		NODE *p = head;
+		NODE<T> *p = head;
 		head = head -> next;
 		delete p;
 		p = NULL;
@@ -72,14 +77,15 @@ char stack::pop()
 	}
 }
 
-string inverse(stack &s)
+template<class T>
+string inverse(stack<T> &s)
 {
 	string str;
 	vector<string> svec;
 	s.pop();
 	while(!s.empty())
 	{
-		char c = s.pop();
+		T c = s.pop();
 		if(c != ' ')
 		{
 			str += c;
@@ -99,26 +105,29 @@ string inverse(stack &s)
 	return str;
 }
 
+template<class T>
 class queue
 {
 private:
-	stack s1;
-	stack s2;
+	stack<T> s1;
+	stack<T> s2;
 
 public:
 	queue() = default;
 
-	void insert(const char &c);
-	char get_front();
+	void insert(const T &c);
+	T get_front();
 	bool empty(){return (s1.size() + s2.size() == 0);}
 };
 
-void queue::insert(const char &c)
+template<class T>
+void queue<T>::insert(const T &c)
 {
 	s1.push(c);
 }
 
-char queue::get_front()
+template<class T>
+T queue<T>::get_front()
 {
 	if(s2.empty())
 	{
@@ -132,16 +141,18 @@ char queue::get_front()
 
 int main()
 {
-	stack stk;	
-	queue que;
+	stack<char> stk;	
+	queue<char> que;
 	char c;
 	while(cin >> noskipws >> c)
 	{
 		que.insert(c);
 		stk.push(c);
 	}
+	cout << endl;
 	while(!que.empty())
 		cout << que.get_front();
+	cout << endl;
 	cout << inverse(stk);
 	cout << endl;
 	return 0;
