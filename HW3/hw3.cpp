@@ -77,7 +77,7 @@ T stack<T>::pop()
 	}
 }
 
-template<class T>
+/*template<class T>
 string inverse(stack<T> &s)
 {
 	string str;
@@ -102,6 +102,28 @@ string inverse(stack<T> &s)
 	str.clear();
 	for(auto iter = svec.rbegin(); iter != svec.rend(); ++iter)
 		str += *iter + " ";
+	return str;
+}*/
+
+string inverse(char &c)
+{
+	stack<char> s;
+	string str;
+	while (cin >> noskipws >> c)
+		{
+			s.push(c);
+			if(c == '\n')
+				s.pop();
+			else if(c == ' ')
+			{
+				s.pop();
+				while(!s.empty())
+					str += s.pop();
+				str += ' ';
+			}
+		}
+		while(!s.empty())
+			str += s.pop();
 	return str;
 }
 
@@ -143,18 +165,25 @@ int main()
 {
 	stack<char> stk;	
 	queue<char> que;
-	char c;
-	while(cin >> noskipws >> c)
+	char c1, c2;
+	cout << "If you want to use the queue,please enter: Q, if you want to inverse the words, please enter: I." << endl;
+	cin >> c2;
+	if (c2 == 'Q')
 	{
-		que.insert(c);
-		stk.push(c);
+		cout << "Please enter the words you want to put in the queue: ";
+		while(cin >> noskipws >> c1)
+			que.insert(c1);
+		cout << endl;
+		while(!que.empty())
+			cout << que.get_front();
+		cout << endl;
 	}
-	cout << endl;
-	while(!que.empty())
-		cout << que.get_front();
-	cout << endl;
-	cout << inverse(stk);
-	cout << endl;
+	else
+	{
+		cout << "Please enter the words you want to reverse: ";
+		cout << inverse(c1);
+		cout << endl;
+	}
 	return 0;
 
 }
