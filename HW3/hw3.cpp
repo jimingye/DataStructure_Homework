@@ -105,26 +105,20 @@ string inverse(stack<T> &s)
 	return str;
 }*/
 
-string inverse(char &c)
+void inverse(char &c)
 {
 	stack<char> s;
-	string str;
 	while (cin >> noskipws >> c)
+	{
+		s.push(c);
+		if(c == ' ' || c == '\n')
 		{
-			s.push(c);
-			if(c == '\n')
-				s.pop();
-			else if(c == ' ')
-			{
-				s.pop();
-				while(!s.empty())
-					str += s.pop();
-				str += ' ';
-			}
+			s.pop();
+			while(!s.empty())
+				cout << s.pop();
+			cout << ' ';
 		}
-		while(!s.empty())
-			str += s.pop();
-	return str;
+	}
 }
 
 template<class T>
@@ -180,8 +174,8 @@ int main()
 	}
 	else
 	{
-		cout << "Please enter the words you want to reverse: ";
-		cout << inverse(c1);
+		cout << "Please enter the words you want to reverse:";
+		inverse(c1);
 		cout << endl;
 	}
 	return 0;

@@ -4,37 +4,36 @@
 
 using namespace::std;
 
-string inverse(char &c)
+void inverse(char &c)
 {
 	stack<char> s;
 	string str;
 	while (cin >> noskipws >> c)
+	{
+		s.push(c);
+		if(c == ' ' || c == '\n')
 		{
-			s.push(c);
-			if(c == ' ')
-			{
-				s.pop();
-				while(!s.empty())
-				{
-					str += s.top();
-					s.pop();
-				}
-				str += ' ';
-			}
-		}
-		s.pop();
-		while(!s.empty())
-		{
-			str += s.top();
 			s.pop();
+			while(!s.empty())
+			{
+				cout << s.top();
+				s.pop();
+			}				
+			cout << ' ';
 		}
-	return str;
+	}
+	while(!s.empty())
+	{
+		cout << s.top();
+		s.pop();
+	}
+	//return str;
 }
 
 int main()
 {
 	char c; 
-	cout << inverse(c);
+	inverse(c);
 	cout << endl;
 	return 0;
 }
