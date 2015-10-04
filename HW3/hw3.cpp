@@ -10,7 +10,7 @@ Mac OSX
 #include <vector>
 #include <string>
 
-using namespace::std;
+using namespace std;
 
 template<class T>
 struct NODE
@@ -105,9 +105,10 @@ string inverse(stack<T> &s)
 	return str;
 }*/
 
-void inverse(char &c)
+template<class T>
+void inverse(T &c)
 {
-	stack<char> s;
+	stack<T> s;
 	while (cin >> noskipws >> c)
 	{
 		s.push(c);
