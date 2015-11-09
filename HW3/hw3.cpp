@@ -1,10 +1,13 @@
 /*
-Homework_2
+Homework_3
 Jiming Ye
 N16566270
 jy1769@nyu.edu
 Mac OSX
 */
+
+//grading commnets
+/*inverse does not return to main, stays stuck in while loop until force quit (-1) No way to stop input for queue, does not display final result (-2) To handle user input, use cin.get() to process one character at a time, and use a while loop to go through until a newline character received In your explanation of the complexity, you mention probabilities when you mean complexities ("there are two kinds of probabilities")*/
 
 #include <iostream>
 #include <vector>

@@ -1,5 +1,5 @@
 /*
-Homework_2
+Homework_4
 Jiming Ye
 N16566270
 jy1769@nyu.edu
@@ -10,7 +10,11 @@ Mac OSX
 #include <string>
 #include <vector>
 
-using namespace::std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
 
 void makepair(vector<string> &svec, string str, int left, int right)
 {
@@ -20,13 +24,13 @@ void makepair(vector<string> &svec, string str, int left, int right)
 		return;
 	}
 
-	if(left > 0)
+	if(left > 0)                                                         //left should always be less or equal to right.
 		makepair(svec, str + "(", left - 1, right);
 	if (left < right)
 		makepair(svec, str + ")", left, right - 1);
 }
 
-vector<string> P_pair(int n)
+vector<string> P_pair(int n)                                             //call the recursion function.
 {
 	vector<string> pair;
 	makepair(pair, "", n, n);
@@ -35,7 +39,7 @@ vector<string> P_pair(int n)
 
 int main()
 {
-	cout << "please enter the numbers of paretheses pairs: " << endl;
+	cout << "please enter the number of paretheses pairs: " << endl;
 	int n;
 	cin >> n;
 	vector<string> svec = P_pair(n);

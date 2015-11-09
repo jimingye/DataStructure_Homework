@@ -5,6 +5,9 @@ N16566270
 jy1769@nyu.edu
 */
 
+//grading comments
+/*Remove account doesn't return -1 if target not found (-1) Min dollars is 51, not 50 and min call length is 11 sec not 10 (-1) Constructor takes a value for balance and that is used instead of the addBalance function in main (-1) Graded the insert1 function for the complexity analysis (there was no reason provided for the other)*/
+
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
@@ -93,7 +96,7 @@ void AccountStore::insert(PrepaidAccount entry)                               //
 			for(int j=used; j>=i; --j)
 				account[j + 1] = account[j];
 			account[i] = entry;
-			break;
+			break;                                                           //if without break, the comparing will continue untill i = used.
 		}
 	}
 	++used;
@@ -156,8 +159,8 @@ int main()
 		long m = rand() % 9000000000 + 1000000000;
 		strstream << m;
 		string s = strstream.str();
-		double am = rand() % 50 + 51;
-		int sec = rand() % 190 + 11;
+		double am = rand() % 50 + 50;
+		int sec = rand() % 190 + 10;
 		double cost = (rand() % 5 + 1)/10.0;
 		PrepaidAccount a(s, am);
 		a.PayForCall(sec, cost);

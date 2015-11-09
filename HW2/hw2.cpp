@@ -6,6 +6,9 @@ jy1769@nyu.edu
 Mac OSX
 */
 
+//grading comments
+/*median gives a seg fault when called on a list with 1 element because ->next->data does not exist (-1) Same thing happens with reverse (-1) Ideally program would repeatedly ask what to do instead of stopping, can do this by calling main() again (-0) Handling of response in main would be clearer using switch instead of repeated if-else (-0)*/
+
 #include <iostream>
 
 using namespace::std;
