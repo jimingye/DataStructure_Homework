@@ -15,6 +15,7 @@ using std::queue;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::cerr;
 
 struct BTnode
 {
@@ -178,6 +179,7 @@ int main()
 {
 	string s1, s2;
 	Binary_tree Tree;
+
 	cout << "Please enter the create command and numbers in the tree: " << endl;
 	getline(cin, s1);
 	auto iter_1 = s1.begin();
@@ -194,29 +196,42 @@ int main()
 		Tree.create_tree(s1, 5);
 	}
 	cout << "Constructed!" << endl;
+
 	cout << "Please enter the print command: " << endl;
+	start:
 	getline(cin, s2);
 	auto iter_2 = s2.begin();
-	if(*(iter_2 + 3) == 'R' || *(iter_2 + 3) == 'r')
+
+	if(*(iter_1 + 3) != *(iter_2 + 3))
+		{
+			cerr << "the creat command and print command are different!" << endl;
+			cout << "Please enter the print command again: " << endl;
+			goto start;
+		}
+		
+	else
 	{
-		Tree.call_assign_preorder(Tree.root, s1, 6);
-		cout << "Output: " << endl;
-		Tree.traversal_preorder(Tree.root);
-		cout << endl;
-	}
-	else if(*(iter_2 + 3) == 'O' || *(iter_2 + 3) == 'o')
-	{
-		Tree.call_assign_postorder(Tree.root, s1, 7);
-		cout << "Output: " << endl;
-		Tree.traversal_postorder(Tree.root);
-		cout << endl;
-	}
-	else if(*(iter_2 + 3) == 'N' || *(iter_2 + 3) == 'n')
-	{
-		Tree.call_assign_inorder(Tree.root, s1, 5);
-		cout << "Output: " << endl;
-		Tree.traversal_inorder(Tree.root);
-		cout << endl;
+		if(*(iter_2 + 3) == 'R' || *(iter_2 + 3) == 'r')
+		{
+			Tree.call_assign_preorder(Tree.root, s1, 6);
+			cout << "Output: " << endl;
+			Tree.traversal_preorder(Tree.root);
+			cout << endl;
+		}
+		else if(*(iter_2 + 3) == 'O' || *(iter_2 + 3) == 'o')
+		{
+			Tree.call_assign_postorder(Tree.root, s1, 7);
+			cout << "Output: " << endl;
+			Tree.traversal_postorder(Tree.root);
+			cout << endl;
+		}
+		else if(*(iter_2 + 3) == 'N' || *(iter_2 + 3) == 'n')
+		{
+			Tree.call_assign_inorder(Tree.root, s1, 5);
+			cout << "Output: " << endl;
+			Tree.traversal_inorder(Tree.root);
+			cout << endl;
+		}
 	}
 	return 0;
 }
