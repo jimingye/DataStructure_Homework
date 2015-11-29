@@ -1,23 +1,21 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <ctime>        
+#include <cstdlib>      
+
+int myrandom (int i) { return rand()%i;}
 using namespace::std;
 
 int main()
 {
-	int array[10];
-	int m = 0;
-	for(int n = 0; n != 10; ++n)
-	{
-		int i;
-		char c;
-		if(cin >> i)
-		{
-			array[n] = i;
-			++m;
-		}
-		else if(cin >> c)
-			break;
-	}
-	cout << m << array[0] << ' ' << array[1] << ' ' << array[2] << endl;
+	srand ( unsigned ( time(0) ) );
+	int capacity = 1024;
+	vector<int> ivec;
+	for(int n = 0; n != capacity; ++n)
+		ivec.push_back(n);
+	random_shuffle(ivec.begin(), ivec.end(), myrandom);
+	for(auto m : ivec)
+		cout << m << ' ';
 	return 0;
 }

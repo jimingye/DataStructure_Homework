@@ -8,14 +8,18 @@ Mac OSX
 
 #include <iostream>
 #include <vector>
-#include <string>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 
 using std::vector;
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::rand;
+using std::srand;
+using std::time;
 
 struct List_NODE
 {
@@ -57,7 +61,7 @@ public:
 	BSTnode *root;
 
 public:
-	BS_tree(){root = new BSTnode();}
+	BS_tree(){root = new BSTnode(-1);}
 	~BS_tree(){};
 
 	BSTnode* create_node(const int &entry);
@@ -68,7 +72,7 @@ public:
 
 void Linkedlist::create()
 {
-	head = new List_NODE();
+	head = new List_NODE(-1);
 }
 
 void Linkedlist::clear()
@@ -84,7 +88,7 @@ void Linkedlist::clear()
 
 void Linkedlist::insert(const int &entry)
 {
-	List_NODE *p = new List_NODE();
+	List_NODE *p = new List_NODE(-1);
 	p -> data = entry, p -> next = NULL;
 	if(head == NULL)
 		head = p;
@@ -101,7 +105,7 @@ int Linkedlist::search(List_NODE *head, int target)
 {
 	int count = 0;
 	List_NODE *p = head;
-	while( p != NULL)
+	while( p != NULL && p ->next != NULL)
 	{
 		if(p -> data == target)
 			break;
@@ -117,7 +121,7 @@ int Linkedlist::search(List_NODE *head, int target)
 
 BSTnode* BS_tree::create_node(const int &entry)
 {
-	BSTnode *p = new BSTnode();
+	BSTnode *p = new BSTnode(-1);
 	p -> data = entry;
 	return p;
 }
@@ -128,7 +132,7 @@ void BS_tree::insert(BSTnode *&root, const int &entry)
 		root = create_node(entry);
 	else if(entry <= root -> data)
 		insert(root -> left, entry);
-	else
+	else if(entry > root -> data)
 		insert(root -> right, entry);
 }
 
@@ -142,9 +146,9 @@ int BS_tree::search(BSTnode *root, int target, bool &found, int &count)
 	{
 		found = true;
 	}
-	else if(target <= root -> data)
+	else if(target <= root -> data && root -> left != NULL)
 		search(root -> left, target, found, ++count);
-	else
+	else if(target > root -> data && root -> right != NULL)
 		search(root -> right, target, found, ++count);
 	return count;
 }
@@ -156,7 +160,7 @@ void BS_tree::exist(bool found)
 	else
 		cout << "not found.";
 }
-
+///*
 int main()
 {
 	BS_tree tree;
@@ -183,6 +187,8 @@ int main()
 	}
 	cout << "Please enter an integer to search: " << endl;
 	int target; 
+	cin.clear();
+	cin.ignore();
 	cin >> target;
 	int list_count, BS_tree_count;
 	list_count = list.search(list.head, target);
@@ -196,3 +202,56 @@ int main()
 	cout << endl;
 	return 0;
 }
+//*/
+/*
+int myrandom (int i) { return rand()%i;}
+
+int main()
+{
+	BS_tree tree1;
+	Linkedlist list1;
+	BS_tree tree2;
+	Linkedlist list2;
+	int capacity = 1024;
+	vector<int> ivec1, ivec2;
+	for(int n = 1; n <= capacity; ++n)
+	{
+		ivec1.push_back(n);
+		ivec2.push_back(n);
+	}
+	srand (unsigned(time(0)));
+	random_shuffle(ivec1.begin(), ivec1.end(), myrandom);
+	for(auto m1 : ivec1)
+	{
+		list1.insert(m1);
+		tree1.insert(tree1.root, m1);
+	}
+	for(auto m2 : ivec2)
+	{
+		list2.insert(m2);
+		tree2.insert(tree2.root, m2);
+	}
+	int target = 0;
+	int list_count1, BS_tree_count1;
+	list_count1 = list1.search(list1.head, target);
+	bool found1;
+	int count1 = 0; 
+	BS_tree_count1 = tree1.search(tree1.root, target, found1, count1);
+	int list_count2, BS_tree_count2;
+	list_count2 = list2.search(list2.head, target);
+	bool found2;
+	int count2 = 0; 
+	BS_tree_count2 = tree2.search(tree2.root, target, found2, count2);
+	cout << target << ' ' << "is" << ' ';
+	tree1.exist(found1);
+	cout << ' ' << "BST visited " << BS_tree_count1 << ' ' << "nodes.";
+	cout << ' ' << "Linked-list visited " << list_count1 << ' ' << "nodes.";
+	cout << endl;
+	cout << target << ' ' << "is" << ' ';
+	tree2.exist(found2);
+	cout << ' ' << "BST visited " << BS_tree_count2 << ' ' << "nodes.";
+	cout << ' ' << "Linked-list visited " << list_count2 << ' ' << "nodes.";
+	cout << endl;
+	return 0;
+}
+*/
