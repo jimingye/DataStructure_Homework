@@ -25,7 +25,7 @@ struct List_NODE
 {
 	int data;
 	List_NODE *next;
-	List_NODE() = default;
+	//List_NODE() = default;
 	List_NODE(const int& d):data(d),next(NULL){}
 };
 
@@ -34,7 +34,7 @@ struct BSTnode
 	int data;
 	BSTnode *left;
 	BSTnode *right;
-	BSTnode() = default;
+	//BSTnode() = default;
 	BSTnode(int i): data(i), left(NULL), right(NULL) {}
 };
 
