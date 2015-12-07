@@ -19,7 +19,7 @@ using std::queue;
 
 int counter = 0;
 
-void merge(int data[], int leftSize, int rightSize, int &counter)
+void merge_A(int data[], int leftSize, int rightSize, int &counter)
 {
 	int *temp;
 	size_t copiedLeft = 0;
@@ -30,24 +30,28 @@ void merge(int data[], int leftSize, int rightSize, int &counter)
   	{
     	if(data[copiedLeft] < (data+leftSize)[copiedRight])
 			{
-				temp[copied++] = data[copiedLeft++];
+				temp[copied] = data[copiedLeft];
+				++copied, ++copiedLeft;
 				++counter;
 			}
     	else
 			{
-				temp[copied++] = (data+leftSize)[copiedRight++];
+				temp[copied] = (data+leftSize)[copiedRight];
+				++copied, ++copiedRight;
 				++counter;
 			}
     }
 	while(copiedLeft < leftSize)
     	{
-    		temp[copied++] = data[copiedLeft++];
+    		temp[copied] = data[copiedLeft];
+    		++copied, ++copiedLeft; 
     		++counter;
     	}
   
   	while(copiedRight < rightSize)
     	{
-    		temp[copied++] = (data+copiedLeft)[copiedRight++];
+    		temp[copied] = (data+copiedLeft)[copiedRight];
+    		++copied, ++copiedRight;
   			++counter;
   		}
   	for(size_t i = 0; i < leftSize+rightSize; i++)
@@ -55,7 +59,7 @@ void merge(int data[], int leftSize, int rightSize, int &counter)
   	delete [] temp;
 }
 
-void mergeSort(int data[], int arraySize)
+void mergeSort_A(int data[], int arraySize)
 {
   	size_t leftSize;
   	size_t rightSize;
@@ -63,9 +67,62 @@ void mergeSort(int data[], int arraySize)
     {
     	leftSize = arraySize/2;
     	rightSize = arraySize - leftSize;
-    	mergeSort(data, leftSize);
-     	mergeSort((data+leftSize), rightSize);
-     	merge(data, leftSize, rightSize, counter);
+    	mergeSort_A(data, leftSize);
+     	mergeSort_A((data+leftSize), rightSize);
+     	merge_A(data, leftSize, rightSize, counter);
+    }
+}
+
+void merge_D(int data[], int leftSize, int rightSize, int &counter)
+{
+	int *temp;
+	size_t copiedLeft = 0;
+	size_t copiedRight = 0;
+	size_t copied = 0;
+	temp = new int[leftSize + rightSize];
+	while((copiedLeft < leftSize) && (copiedRight < rightSize))
+  	{
+    	if(data[copiedLeft] > (data+leftSize)[copiedRight])
+			{
+				temp[copied] = data[copiedLeft];
+				++copied, ++copiedLeft;
+				++counter;
+			}
+    	else
+			{
+				temp[copied] = (data+leftSize)[copiedRight];
+				++copied, ++copiedRight;
+				++counter;
+			}
+    }
+	while(copiedLeft < leftSize)
+    	{
+    		temp[copied] = data[copiedLeft];
+    		++copied, ++copiedLeft;
+    		++counter;
+    	}
+  
+  	while(copiedRight < rightSize)
+    	{
+    		temp[copied] = (data+copiedLeft)[copiedRight];
+    		++copied, ++copiedRight;
+  			++counter;
+  		}
+  	for(size_t i = 0; i < leftSize+rightSize; i++)
+    	data[i] = temp[i];
+  	delete [] temp;
+}
+void mergeSort_D(int data[], int arraySize)
+{
+  	size_t leftSize;
+  	size_t rightSize;
+  	if(arraySize > 1)
+    {
+    	leftSize = arraySize/2;
+    	rightSize = arraySize - leftSize;
+    	mergeSort_D(data, leftSize);
+     	mergeSort_D((data+leftSize), rightSize);
+     	merge_D(data, leftSize, rightSize, counter);
     }
 }
 
@@ -98,16 +155,19 @@ int main()
 		array[n] = String_to_Number(sque.front());
 		sque.pop();
 	}
-	mergeSort(array, m);
 	if(str2 == "A" || str2 == "a")
 	{
+		mergeSort_A(array, m);
+		cout << "The result is: " << endl;
 		for(int i = 0; i != m; ++i)
 			cout << array[i] << " ";
 		cout << endl;
 	}
 	else if(str2 == "D" || str2 == "d")
 	{
-		for(int i = m - 1; i != -1; --i)
+		mergeSort_D(array, m);
+		cout << "The result is: " << endl;
+		for(int i = 0; i != m; ++i)
 			cout << array[i] << " ";
 		cout << endl;
 	}
